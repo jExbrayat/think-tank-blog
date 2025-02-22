@@ -2,6 +2,7 @@ interface SiteConfig {
 	site: string
 	author: string
 	title: string
+	subTitle: string
 	description: string
 	lang: string
 	ogLocale: string
@@ -13,6 +14,7 @@ export const siteConfig: SiteConfig = {
 	site: 'https://blog-template-gray.vercel.app/', // Write here your website url
 	author: 'Jules Exbrayat', // Site author
 	title: "IA de l'Espoir", // Site title.
+	subTitle: 'French Think-Tank, World Wide',
 	description: 'French Think-Tank, World Wide', // Description to display in the meta tags
 	lang: 'en-GB',
 	ogLocale: 'en_GB',
