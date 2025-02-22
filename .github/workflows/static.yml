@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      actions: write
+      pages: write
 
     steps:
       # Checkout the repository
