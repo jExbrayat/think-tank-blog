@@ -1,0 +1,37 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger the action on pushes to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up pnpm (you can adjust the version if needed)
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.4.1  # You can specify the version of pnpm you're using
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # Build the project
+      - name: Build the website
+        run: pnpm run build
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages        # The branch where the built site will be deployed
+          folder: dist             # The folder where the built static files are located
+          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token to authenticate deployment
