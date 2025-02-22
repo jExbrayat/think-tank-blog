@@ -9,10 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      deployments: write
       actions: write
-      pages: write
+      checks: write
+      contents: write
+      deployments: write
+      discussions: write
+      issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
 
     steps:
       # Checkout the repository
