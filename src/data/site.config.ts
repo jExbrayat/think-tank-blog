@@ -1,5 +1,6 @@
 interface SiteConfig {
 	site: string
+	base: string
 	author: string
 	title: string
 	subTitle: string
@@ -12,7 +13,7 @@ interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
 	site: 'https://jexbrayat.github.io/think-tank-blog/', // Write here your website url
-	base: '/think-tank-blog/',
+	base: '',
 	author: 'Jules Exbrayat', // Site author
 	title: "IA de l'Espoir", // Site title.
 	subTitle: 'French Think-Tank, World Wide',
