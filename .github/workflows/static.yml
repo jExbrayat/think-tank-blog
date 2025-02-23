@@ -30,8 +30,5 @@ jobs:
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3  # This action will deploy to GitHub Pages
       with:
-        folder: dist  # Path to the build output (make sure this matches your build folder)
-        branch: gh-pages  # Deploy to the gh-pages branch
-        target-folder: /  # Optional: You can specify a subfolder for deployment
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication (automatically available)
+        publish_dir: ./dist  # default: public        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages  # default: gh-pages
