@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jexbrayat.github.io/think-tank-blog/
+Sitemap: https://jexbrayat.github.io/
