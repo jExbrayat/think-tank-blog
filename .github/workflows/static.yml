@@ -28,9 +28,7 @@ jobs:
 
       # Set up pnpm (you can adjust the version if needed)
       - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 10.4.1  # You can specify the version of pnpm you're using
+        run: npm install pnpm
 
       # Install dependencies
       - name: Install dependencies
