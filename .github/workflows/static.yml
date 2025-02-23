@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18.12'  # You can specify the Node.js version you want here
+        node-version: 'latest'  # You can specify the Node.js version you want here
 
     - name: Install pnpm
       run: npm install -g pnpm@latest-10  # Install pnpm globally
