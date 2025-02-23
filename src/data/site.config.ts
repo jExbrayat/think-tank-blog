@@ -11,7 +11,7 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://jexbrayat.github.io/', // Write here your website url
+	site: 'https://jexbrayat.github.io/think-tank-blog/', // Write here your website url
 	author: 'Jules Exbrayat', // Site author
 	title: "IA de l'Espoir", // Site title.
 	subTitle: 'French Think-Tank, World Wide',
