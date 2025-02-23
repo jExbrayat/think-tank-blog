@@ -1,47 +1,37 @@
-name: Build and Deploy to GitHub Pages
+name: Build and Deploy Website
 
 on:
   push:
     branches:
-      - main  # Trigger the action on pushes to the main branch
+      - main  # Trigger this workflow when pushing to the main branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      discussions: write
-      issues: write
-      packages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
+  deploy:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Checkout the code from the main branch
 
-      # Set up pnpm (you can adjust the version if needed)
-      - name: Set up pnpm
-        run: npm install pnpm
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # You can specify the Node.js version you want here
 
-      # Install dependencies
-      - name: Install dependencies
-        run: pnpm install
+    - name: Install pnpm
+      run: npm install -g pnpm@latest-10  # Install pnpm globally
 
-      # Build the project
-      - name: Build the website
-        run: pnpm run build
+    - name: Install dependencies
+      run: pnpm install  # Install project dependencies using pnpm
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages        # The branch where the built site will be deployed
-          folder: dist             # The folder where the built static files are located
-          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token to authenticate deployment
+    - name: Build the website
+      run: pnpm run build  # Build the website (output should go to ./dist or your specified folder)
+
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3  # This action will deploy to GitHub Pages
+      with:
+        folder: dist  # Path to the build output (make sure this matches your build folder)
+        branch: gh-pages  # Deploy to the gh-pages branch
+        target-folder: /  # Optional: You can specify a subfolder for deployment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication (automatically available)
