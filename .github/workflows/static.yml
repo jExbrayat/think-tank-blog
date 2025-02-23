@@ -1,35 +1,39 @@
-name: Build and Deploy Website
+name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches:
-      - main  # Trigger this workflow when pushing to the main branch
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest  # Use an Ubuntu runner
-
+  build:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3  # Checkout the code from the main branch
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+        # with:
+          # path: . # The root location of your Astro project inside the repository. (optional)
+          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'latest'  # You can specify the Node.js version you want here
-
-    - name: Install pnpm
-      run: npm install -g pnpm@latest-10  # Install pnpm globally
-
-    - name: Install dependencies
-      run: pnpm install  # Install project dependencies using pnpm
-
-    - name: Build the website
-      run: pnpm run build  # Build the website (output should go to ./dist or your specified folder)
-
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3  # This action will deploy to GitHub Pages
-      with:
-        publish_dir: ./dist  # default: public        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages  # default: gh-pages
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
